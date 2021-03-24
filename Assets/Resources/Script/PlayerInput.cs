@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour
     public Transform moveTargetPoint;
     public bool IsMoving, IsFalling;
     public LayerMask collisions;
+    public LayerMask movableObjs;
 
     SpriteRenderer sr;
 
@@ -67,6 +68,8 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+
+
     void SpriteOrientation(float direction)
     {
         if (direction < 0)
@@ -74,13 +77,13 @@ public class PlayerInput : MonoBehaviour
         else
             sr.flipX = false;
     }
-    private Collider2D CollisionCheck(float direction, bool horizontal)
+    private bool CollisionCheck(float direction, bool horizontal) //VEDERE MEGLIO
     {
         if (horizontal)
             return Physics2D.OverlapCircle(moveTargetPoint.position + new Vector3(direction, 0, 0), .2f, collisions);
         else
             return Physics2D.OverlapCircle(moveTargetPoint.position + new Vector3(0, direction), .2f, collisions);
-    }
+    }  
 
     void PlayFallingAnimation()
     {
